@@ -344,6 +344,66 @@ public class SQLiteConnectorTest extends Activity
     }
     mystatement.dispose();
 
+    // add second record to test REGEXP:
+    try {
+      mystatement = mydbc.prepareStatement("INSERT INTO mytable (text1, num1, num2, real1) VALUES (?,?,?,?)");
+    } catch (SQLException ex) {
+      // should not get here:
+      logUnexpectedException("prepare statement exception (not expected)", ex);
+      mydbc.dispose();
+      return;
+    }
+    mystatement.bindTextNativeString(1, "tst2");
+    mystatement.bindInteger(2, 1);
+    mystatement.bindInteger(3, 1);
+    mystatement.bindInteger(4, 1);
+    keep_going = mystatement.step();
+    while (keep_going) {
+      logError("ERROR: ROW result NOT EXPECTED for INSERT");
+      keep_going = mystatement.step();
+    }
+    mystatement.dispose();
+
+    /// test REGEXP:
+    try {
+      mystatement = mydbc.prepareStatement("SELECT * FROM mytable WHERE text1 REGEXP 'te*s+t2+';");
+    } catch (SQLException ex) {
+      logUnexpectedException("prepare statement exception", ex);
+      mydbc.dispose();
+      return;
+    }
+
+    // should be exactly 1 result:
+    keep_going = mystatement.step();
+    checkBooleanResult("SELECT step result (keep_going flag)", keep_going, true);
+    if (keep_going) {
+      int colcount = mystatement.getColumnCount();
+      checkIntegerResult("SELECT column count", colcount, 4);
+
+      if (colcount >= 3) {
+        int colid = 0;
+        String colname;
+        int coltype;
+        String coltext;
+        int intval;
+        long longval;
+        double doubleval;
+
+        colname = mystatement.getColumnName(colid);
+        checkStringResult("SELECT column " + colid + " name from REGEXP", colname, "text1");
+
+        coltype = mystatement.getColumnType(colid);
+        checkIntegerResult("SELECT column " + colid + " type from REGEXP", coltype, SQLColumnType.TEXT);
+
+        coltext = mystatement.getColumnTextNativeString(colid);
+        checkStringResult("SELECT column " + colid + " text string from REGEXP", coltext, "tst2");
+      }
+
+      keep_going = mystatement.step();
+    }
+    checkBooleanResult("SELECT step result (keep_going flag)", keep_going, false);
+    mystatement.dispose();
+
     // try to cleanup the table:
     try {
       mystatement = mydbc.prepareStatement("DROP TABLE IF EXISTS mytable;");
@@ -355,8 +415,6 @@ public class SQLiteConnectorTest extends Activity
     mystatement.step();
     mystatement.dispose();
 
-    // XXX TODO: for some reason sqlite3_close as called by mydbc.dispose() does not work
-    // since it was not possible to finalize the statement after the constraint violation.
     try {
       mydbc.dispose();
     } catch (SQLException ex) {
