@@ -208,6 +208,14 @@ package io.liteglue;
     private long sthandle = 0;
   }
 
+  @Override
+  public String flatBatchJSON(String batchJSON, int ll) {
+    long fjhandle = SQLiteNative.sqlc_db_new_fj(dbhandle);
+    String r = SQLiteNative.sqlc_fj_run(fjhandle, batchJSON, ll);
+    SQLiteNative.sqlc_fj_dispose(fjhandle);
+    return r;
+  }
+
   String dbfilename = null;
   int openflags = 0;
   private long dbhandle = 0;

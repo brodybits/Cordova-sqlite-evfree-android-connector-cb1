@@ -9,4 +9,5 @@ package io.liteglue;
   public long getLastInsertRowid();
   public int getTotalChanges();
   public String getLastErrorMessage();
+  public String flatBatchJSON(String batchJSON, int ll);
 }

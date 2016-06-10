@@ -6,4 +6,5 @@ public interface SQLiteConnection {
   public SQLiteStatement prepareStatement(String sql) throws java.sql.SQLException;
   public long getLastInsertRowid() throws java.sql.SQLException;
   public int getTotalChanges() throws java.sql.SQLException;
+  public String flatBatchJSON(String batchJSON, int ll);
 }

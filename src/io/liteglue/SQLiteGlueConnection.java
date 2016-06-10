@@ -228,5 +228,10 @@ package io.liteglue;
     private int columnCount = 0;
   }
 
+  @Override
+  public String flatBatchJSON(String batchJSON, int ll) {
+    return db.flatBatchJSON(batchJSON, ll);
+  }
+
   private SQLDatabaseHandle db = null;
 }

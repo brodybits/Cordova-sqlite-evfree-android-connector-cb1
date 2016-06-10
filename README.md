@@ -1,4 +1,6 @@
-# Android sqlite connector
+# Cordova sqlite evfree Android connector
+
+Based on: Android sqlite connector
 
 Java classes with abstract interface layers to provide a simple, easy-to-use Java interface to the andriod-sqlite-native-driver library (may be adapted for other Java environments).
 
@@ -6,7 +8,9 @@ With a simple test Android app included.
 
 by Christopher J. Brody aka Chris Brody mailto: brodybits@litehelpers.net
 
-License: UNLICENSE (public domain).
+License: GPL or commercial
+
+TBD TBD TBD TBD
 
 ## Dependencies
 
@@ -16,7 +20,7 @@ License: UNLICENSE (public domain).
 
 ### Not included
 
-- Native Android libraries, provided in `sqlite-native-driver-libs.zip` as built from [@liteglue / Android-sqlite-native-driver](https://github.com/liteglue/Android-sqlite-native-driver)
+- Native Android evfree native driver libraries, TBD ~~provided in `sqlite-native-driver-libs.zip` as built from [@liteglue / Android-sqlite-native-driver](https://github.com/liteglue/Android-sqlite-native-driver)~~
 
 ## TBD (TEMPORARILY BROKEN) Alternative native library builds
 
@@ -28,10 +32,12 @@ License: UNLICENSE (public domain).
 ## Installation
 
 Include the following in your `libs` directory:
-- Contents of the `libs` subdirectory from `sqlite-native-driver-libs.zip`, as built from [@liteglue / Android-sqlite-native-driver](https://github.com/liteglue/Android-sqlite-native-driver) ~~-- or `sqlcipher-native-driver.jar` as built in [@liteglue / Android-sqlcipher-native-driver](https://github.com/liteglue/Android-sqlcipher-native-driver)~~
+- Contents of the `libs` subdirectory from ~~`sqlite-native-driver-libs.zip`~~ TBD, as built from ~~[@liteglue / Android-sqlite-native-driver](https://github.com/liteglue/Android-sqlite-native-driver)~~ TBD ~~-- or `sqlcipher-native-driver.jar` as built in [@liteglue / Android-sqlcipher-native-driver](https://github.com/liteglue/Android-sqlcipher-native-driver)~~
 - `sqlite-connector.jar`, which is built by simply issuing the `make` command in this project
 
 ## Testing
+
+TBD ??? ???:
 
 There is a simple test project in the `Android-SQLiteConnectorTest` subdirectory. To test:
 - Build `sqlite-connector.jar` in this project (using the `make` command)
@@ -43,6 +49,8 @@ There is a simple test project in the `Android-SQLiteConnectorTest` subdirectory
 - run it on your emulator or device
 
 ## Sample API Usage
+
+XXX TBD evfree API
 
 **IMPORTANT:** Most of the methods described here will throw `java.sql.SQLException` if the sqlite library reports an error or if they detect a problem with the usage.
 
